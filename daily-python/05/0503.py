@@ -1,9 +1,4 @@
-'''
-Date: 2022-05-03 11:23:49
-LastEditors: r7000p
-LastEditTime: 2022-05-03 23:48:46
-FilePath: \Daily\daily-python\05\0503.py
-'''
+
 
 # https://rc.guizhou.gov.cn/
 # https://rc.guizhou.gov.cn/
@@ -42,7 +37,10 @@ def longestcommonprefix(strs):
 
     return str
 
-print(longestcommonprefix(strs0))
-print(longestcommonprefix(strs1))
-print(longestcommonprefix(strs))
-print(longestcommonprefix(test))
+# print(longestcommonprefix(strs0))
+# print(longestcommonprefix(strs1))
+# print(longestcommonprefix(strs))
+# print(longestcommonprefix(test))
+
+print(list(zip(*strs)))
+print(list(zip(*zip(strs[0], strs[1], strs[2]))))
