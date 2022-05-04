@@ -7,8 +7,12 @@ for val in tab:
 if any(element in text for element in tab):
     print("string contain chengdu")
 
-s = "babad"
-s = "cbbd"
+s1 = "babad"
+s2 = "cbbd"
+s3 = "aba"
+s4 = "abba"
+s6 = "abcba"
+
 
 # https://rc.guizhou.gov.cn/
 # https://rc.guizhou.gov.cn/
