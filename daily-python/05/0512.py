@@ -2,6 +2,9 @@
 # 字符串匹配算法：KMP
 # https://leetcode-cn.com/leetbook/read/array-and-string/cpoo6/
 
+# Python 3.7 的源码分析
+# https://flaggo.github.io/python3-source-code-analysis/
+
 s = "ababababca"
 t = "abababca"
 s1 = "aaaaaaaab"
