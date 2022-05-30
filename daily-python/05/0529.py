@@ -1,10 +1,12 @@
 '''
 Date: 2022-05-29 14:08:31
 LastEditors: r7000p
-LastEditTime: 2022-05-29 14:58:47
+LastEditTime: 2022-05-30 20:11:47
 FilePath: \Daily\daily-python\05\0529.py
 '''
-
+# findMin
+# findMin
+# findMin
 def findMin(nums):
     res = 0
     if len(nums) == 1: return nums[0]
@@ -30,4 +32,5 @@ nums = [3,4,5,1,2]
 # for i in range(len(nums)-1, -1, -1):
 #     print(nums[i])
 
-print(findMin(nums))
+# print(findMin(nums))
+
