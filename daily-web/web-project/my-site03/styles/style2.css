@@ -1,0 +1,12 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+span::before {
+    content: "可爱";
+}
+
+span::after {
+    content: "脾气 爆！";
+}

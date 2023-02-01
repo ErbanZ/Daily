@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* 远视图 */
+.out {
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    background-color: #249544;
+    /* border: 10px solid #ffffff; */
+}
+.content1 {
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    background-color: #249544;
+    border: 10px solid #ffffff;
+}
+.content2 {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    background-color: #249544;
+    border: 10px solid #ffffff;
+}
+.content3 {
+    width: 20px;
+    height: 20px;
+    background-color: #249544;
+    border: 10px solid #ffffff;
+}
+
+/* position 定位 */
+.out {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -70px;
+}
+
+/* 置顶 */
+.toTop {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    right: 30px;
+    top: 800px;
+    /* border: 1px solid #0af;
+    border-radius: 50%; */
+    background-image: url('E:/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/r7000p/Daily/daily-web/web-project/my-site03/images/toTop.png');
+}
+
+/* 伪类 */
+.pseudo {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    line-height: 30px;
+}
+a:hover {
+    background-color: #fc5632;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 14px;
+}
+
+/* 列表 */
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: upper-roman;
+}
+
+/* 文本 */
+#center {
+    height: 200px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    /* text-align: center; */
+    text-indent: 2em;
+    text-decoration: line-through;
+    border: 5px solid #0af;
+}
+
+/* .size100 {
+    width: 100px;
+    height: 100px;
+}
+.size200 {
+    width: 200px;
+    height: 200px;
+} */
+
+/* .yellow {
+    background-color: #f8c127;
+}
+.blue {
+    background-color: #2f7cee;
+}
+.green {
+    background-color: #249544;
+} */
+
+
+#tran{
+    position: absolute;
+    margin-left: 50%;
+    left: -400px;
+}
+#tran1 {
+    width: 0px;
+    height: 0px;
+    background-color: #ffffff;
+    border: 200px solid #000000;
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: #000000; */
+    border-top-color: #2f7cee;
+    border-top-color: transparent;
+    border-right-color: #e53d30;
+    /* border-right-color: transparent; */
+    border-bottom-color: #f8c127;
+    border-bottom-color: transparent;
+    border-left-color: #249544;
+    border-left-color: transparent;
+    /* border-radius: 50%; */
+}
+#tran2 {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    background-color: #ffffff;
+    border: 200px solid #000000;
+    margin-top: -400px;
+    margin-left: 400px;
+    border-top-color: #2f7cee;
+    border-top-color: transparent;
+    border-right-color: #249544;
+    border-right-color: transparent;
+    border-bottom-color: #f8c127;
+    border-bottom-color: transparent;
+    border-left-color: #e53d30;
+    /* border-left-color: transparent; */
+}
+#tran3 {
+    width: 200px;
+    height: 200px;
+    background-color: #2f7cee;
+}
+#tran4 {
+    width: 200px;
+    height: 200px;
+    background-color: #2f7cee;
+}
+
+/* 五环 */
+
+.fiveRings {
+    position: fixed;
+    /* width: 470px; */
+    /* height: 240px; */
+    border: 1px solid black;
+    left: 50%;
+    top: 240px;
+    margin-left: -235px;
+}
+
+.pos,
+.redRing,
+.blueRing,
+.blackRing,
+.yellowRing,
+.greenRing {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border: 10px solid black;
+    border-radius: 50%;
+}
+
+.redRing {
+    border-color: #e53d30;
+    left: 0px;
+    top: 0px;
+}
+
+.blueRing {
+    border-color: #000000;
+    left: 160px;
+    top: 0px;
+}
+
+.blackRing {
+    border-color: #249544;
+    left: 320px;
+    top: 0px;
+}
+
+.yellowRing {
+    border-color: #2f7cee;
+    left: 80px;
+    top: 90px;
+}
+
+.greenRing {    
+    border-color: #f8c127;
+    left: 240px;
+    top: 90px;
+}
+
+.pos {
+    border-color: #fc5632;
+    opacity: 0.5;
+    left: 50px;
+    top: 0px;
+}
