@@ -46,10 +46,10 @@
     width: 32px;
     height: 32px;
     right: 30px;
-    top: 800px;
+    top: 90%;
     /* border: 1px solid #0af;
     border-radius: 50%; */
-    background-image: url('E:/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/r7000p/Daily/daily-web/web-project/my-site03/images/toTop.png');
+    background-image: url('../images/toTop.png');
 }
 
 /* 伪类 */
