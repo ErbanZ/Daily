@@ -1,0 +1,13 @@
+class Solution():
+    def findNum(self, nums):
+        res = 0
+        for i in nums:
+            res ^= i
+        return res
+
+nums = [1, 2, 3, 1, 2, 3, 4]    # 4
+nums = [1, 2, 1]                # 2
+nums = [1]                      # 1
+nums = [1,2,3,4,2,1,4]          # 3
+slt = Solution()
+print(slt.findNum(nums))

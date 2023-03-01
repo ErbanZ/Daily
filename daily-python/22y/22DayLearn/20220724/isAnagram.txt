@@ -1,0 +1,10 @@
+class Solution:
+    def isAnagram(self, s, t):
+        return True if sorted(s) == sorted(t) else False
+
+s = "anagram"
+t = "nagaram"
+
+slt = Solution()
+print(slt.isAnagram(s, t))
+# print()

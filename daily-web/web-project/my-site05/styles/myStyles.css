@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+}
+
+h1 {
+    text-shadow: 1px 1px 1px red;
+}
+
+#pic {
+    border: 1px solid black;
+}
+
+#text {
+    border: 1px solid red;
+}
+
+.mid {
+    display: block;
+    margin: 0 auto;
+}
+
+.big.pic {
+    width: 400px;
+}

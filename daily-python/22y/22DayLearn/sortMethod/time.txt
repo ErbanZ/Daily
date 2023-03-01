@@ -1,0 +1,29 @@
+from time import time
+import timeit
+
+def add(a, b, c):
+    return a + b + c
+
+print(timeit.timeit(stmt = "list(i**2 for i in normal_list)", setup = "normal_list=range(10)"))
+print(timeit.repeat(stmt = "list(i for i in range(nums))", setup = "nums=10", repeat=10))
+
+print(timeit.timeit(stmt = "list(i**2 for i in normal_list)", setup = "a=10;normal_list=range(a)"))
+print(timeit.repeat(stmt = "list(i for i in range(nums))", setup = "nums=10", repeat=10))
+
+print(timeit.timeit(stmt = "add(1, 5, 10)", setup = "from __main__ import add"))
+print(timeit.repeat(stmt = "add(1, 5, 10)", setup = "from __main__ import add", repeat=10))
+
+ter = timeit.Timer(stmt = "list(i**2 for i in normal_list)", setup = "normal_list=range(10)")
+print(ter.timeit())
+print(ter.repeat(repeat=10))
+
+ter = timeit.Timer(stmt = "list(i**2 for i in normal_list)", setup = "a=10;normal_list=range(a)")
+print(ter.timeit())
+print(ter.repeat(repeat=10))
+
+ter = timeit.Timer(stmt = "add(1, 5, 10)", setup = "from __main__ import add")
+print(ter.timeit())
+print(ter.repeat(repeat=10))
+
+
+# print(list(i for i in range(1000)))

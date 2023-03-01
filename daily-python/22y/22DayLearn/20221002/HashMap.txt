@@ -1,0 +1,27 @@
+class MyHashMap:
+
+    def __init__(self):
+        self.hashMap = dict()
+
+    def put(self, key, value):
+        self.hashMap[key] = value
+
+    def get(self, key):
+        if self.hashMap.get(key) or self.hashMap.get(key) == 0:
+            return self.hashMap.get(key)
+        return -1
+
+    def remove(self, key):
+        if self.hashMap.get(key):
+            self.hashMap.pop(key)
+
+
+myMap = MyHashMap()
+myMap.put(1,1)
+myMap.put(2,2)
+myMap.get(1)
+myMap.get(3)
+myMap.put(2,1)
+myMap.get(2)
+myMap.remove(2)
+myMap.get(2)

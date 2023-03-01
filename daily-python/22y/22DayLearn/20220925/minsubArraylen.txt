@@ -1,0 +1,22 @@
+class Solution:
+    def minSubArrayLen(self, target, nums):
+        n = len(nums)
+        subSum, res = 0, n
+        if target > sum(nums): return subSum
+        minLen = 0
+        j = 0
+        for i in range(n):
+            subSum += nums[i]
+            minLen += 1
+            while subSum - nums[j] >= target:
+                subSum = subSum - nums[j]
+                j += 1
+                minLen -= 1
+            if subSum >= target:
+                res = min(minLen, res)
+        return res
+
+target = 7
+nums = [1,1,1,1,1,1]
+slt = Solution()
+print(slt.minSubArrayLen(target, nums))

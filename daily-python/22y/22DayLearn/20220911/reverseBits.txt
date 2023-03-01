@@ -1,0 +1,22 @@
+class Solution:
+    def reverseBits(self, n):
+        nums = 0
+        bitStr = str(bin(n)).split('b')[1]
+        bitStr = bitStr[::-1] + '0' * (32-len(bitStr))
+        bitStr = bitStr[::-1]
+        for i, v in enumerate(bitStr):
+            nums += int(v) * 2 ** i
+        return nums
+        
+n = 0b00000010100101000001111010011100
+slt = Solution()
+print(slt.reverseBits(n))
+
+# nums = 0
+# n = 0b00000010100101000001111010011100
+# bitStr = str(bin(n)).split('b')[1]
+# bitStr = bitStr[::-1] + '0' * (32-len(bitStr))
+# bitStr = bitStr[::-1]
+# for i, v in enumerate(bitStr):
+#     nums += int(v) * 2 ** i
+# print(nums)

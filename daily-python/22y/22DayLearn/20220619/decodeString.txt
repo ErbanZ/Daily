@@ -1,0 +1,31 @@
+class Solution:
+    def decodeString(self, s):
+        stack = []
+        i = 0
+        for i in s:
+            if i == ']':
+                res = ""
+                while stack and stack[-1] != '[':
+                    res += stack.pop()
+                res = res[::-1]
+                stack.pop()
+                numString = ''
+                while stack and stack[-1].isdigit():
+                    numString += stack.pop()
+                num = int(numString[::-1])
+                stack.extend(list(res * num))
+            else:
+                stack.append(i)
+        res = ''.join(stack)
+        return res
+
+s1 = "3[a]10[bc]"         # "aaabcbc"
+s2 = "3[a2[c]]"          # "accaccacc"
+s3 = "2[abc]3[cd]ef"     # "abcabccdcdcdef"
+s4 = "abc3[cd]xyz"       # "abccdcdcdxyz"
+
+slt = Solution()
+print(slt.decodeString(s1))
+print(slt.decodeString(s2))
+print(slt.decodeString(s3))
+print(slt.decodeString(s4))

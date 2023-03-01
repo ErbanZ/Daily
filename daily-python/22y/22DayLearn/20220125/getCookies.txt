@@ -1,0 +1,98 @@
+import json
+import csv
+import requests
+
+# 查询所有OA用户
+# OA用户接口
+user_url = "https://oa.xgimi.com/apis/openApi/allEmpListForUMS"
+
+# 用户登录接口
+cookie_url = "http://10.40.33.52:8919/ums/login"
+password = "K7PHtest"
+token = "token"
+
+# 新增地址接口
+address_url = "http://inner-purchase.t.xgimi.com/x/v1/inner-purchase/address/add"
+
+# 请求头参数
+ContentType, ContentType_key = 'Content-Type', 'application/json'
+
+# # 请求Cookie
+# Cookie = "Cookie"
+# reqCookie = "SERVERID=17c226e75370d85548b8b9128b003b31|1643080923|1643080923"
+
+# 构造请求头
+user_headers = {ContentType: ContentType_key}
+
+# csv文件对象
+filename = 'userinfo' + '.csv'
+csvfile = open(filename, 'w', encoding='utf-8', newline='' "")
+# 基于文件对象构建 csv写入对象
+csv_writer = csv.writer(csvfile)
+# 列表头
+csv_writer.writerow(['addressID', 'unit_full_label', 'Cookie'])
+
+# 请求OA用户接口
+user_r = requests.get(user_url, headers=user_headers)
+userList = user_r.json()['data']['data']
+userList_Len = len(userList)
+print(userList_Len)
+
+hasCookie = 0
+hasAddress = 0
+printnum = 0
+for i in range(2400, 2700):
+# for user in userList:
+    # 构造请求头
+    user_headers = {ContentType: ContentType_key}
+
+    # user_name = user['user_name']
+    # unit_full_label = user['unit_full_label']
+    user_name = userList[i]['user_name']
+    unit_full_label = userList[i]['unit_full_label']
+    # print(user_name, unit_full_label)
+
+    # 请求参数封装Json
+    body = json.dumps({'userName': user_name, 'password': password})
+    # 请求用户登录接口获取token
+    cookie_r = requests.post(cookie_url, headers=user_headers, data=body)
+    loginInfo = cookie_r.json()
+
+    if loginInfo['code'] == 200:
+        hasCookie += 1
+    else:
+        break
+
+    # 获取Cookie
+    Cookie = 'GM_TOKEN=' + loginInfo['data']['token']
+
+    # 构造请求头
+    user_headers.update({'Cookie': Cookie})
+    address_body = json.dumps({"consignee":"test","phone":"11111111111","provinceId":3,"cityId":36,"districtId":399,"address":"testtest","acquiescence":False,"countryId":1,"zipCode":"000000"})
+    # 请求用户对应新增地址接口
+    address_r = requests.post(address_url, headers=user_headers, data=address_body)
+    addressInfo = address_r.json()
+
+    if addressInfo['code'] == 200:
+        hasAddress += 1
+    else:
+        break
+
+    # 获取地址id
+    addressID = addressInfo['data']['id']
+
+    # csv_writer.writerow([addressID, unit_full_label, Cookie])
+    print(str(addressID)+',', unit_full_label+',', Cookie)
+
+    cookie_r.close()
+    address_r.close()
+
+del(cookie_r)
+del(address_r)
+
+user_r.close()
+del(user_r)
+
+print("返回code为200的连接数：", hasCookie)
+print("返回code为200的新增地址数：", hasAddress)
+

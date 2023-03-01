@@ -1,0 +1,22 @@
+# # import json
+
+cookies = {}
+
+with open("11_04_requirement\\TOKEN.json", 'r', encoding='utf-8') as fp:
+    print(fp.readline())
+    for i in range(1000):
+        uid_cookie = fp.readline()
+        cookie = uid_cookie[14:-3]
+        cookies[i] = "source=1;passTokenSource=1;passToken=" + cookie
+        print(cookies[i])
+
+    print(fp.readline())
+
+
+with open('11_04_requirement\\ONLY_TOKEN.json', 'w', encoding='utf-8') as fp:
+    for i in range(1000):
+        fp.write(cookies[i] + '\n')
+
+
+# txt = "	\"22000790\": \""
+# print(len(txt))

@@ -1,0 +1,25 @@
+class Solution:
+    def reverse(self, x):
+        res = 0
+        if x < 0:
+            res = int("".join(list(str(x))[:0:-1])) * -1
+        else:
+            res = int("".join(list(str(x))[::-1]))
+        return res if -2 ** 31 < res < 2 ** 31 - 1 else 0
+        # res = 0
+        # while x != 0:
+        #     t = x % 10
+        #     newRes = res * 10 + t
+        #     res = newRes
+        #     x = x // 10
+        # return res
+
+x1 = -123
+x2 = 120
+x3 = 1534236469
+slt = Solution()
+print(slt.reverse(x1))
+print(slt.reverse(x2))
+print(slt.reverse(x3))
+# # print(list(str(-123))[:0:-1])
+# print(123%10)

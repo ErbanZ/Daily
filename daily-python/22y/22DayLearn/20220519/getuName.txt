@@ -1,0 +1,23 @@
+import requests
+
+# 查询所有OA用户
+# OA用户接口
+user_url = "https://oa.xgimi.com/apis/openApi/allEmpListForUMS"
+
+# 请求头参数
+ContentType, ContentType_key = 'Content-Type', 'application/json'
+
+# 构造请求头
+user_headers = {ContentType: ContentType_key}
+
+# 请求OA用户接口
+user_r = requests.get(user_url, headers=user_headers)
+userList = user_r.json()['data']['data']
+userList_Len = len(userList)
+
+print(userList_Len)
+for i in range(2500, 3000):
+
+    user_name = userList[i]['user_name']
+    print(user_name)
+

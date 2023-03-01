@@ -1,0 +1,27 @@
+class Solution:
+    def rotate(self, nums, k):
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        # n = len(nums)
+        # idx = n - k
+        # _nums = [0] * n
+        # for i in range(n):
+        #     _nums[i] = nums[idx]
+        #     idx += 1
+        #     if idx > n - 1:
+        #         idx = 0
+        # nums = _nums
+
+        # for i in range(k):
+        #     nums.insert(0, nums.pop())
+
+        nums = nums[len(nums) - k:] + nums[:len(nums) - k]
+
+k = 3
+nums1 = [1,2,3,4,5,6,7]
+nums2 = [-1,-100,3,99]
+slt = Solution()
+slt.rotate(nums=nums1, k=k)
+slt.rotate(nums=nums2, k=k)
+# slt.rotate()

@@ -1,0 +1,44 @@
+# give up
+class Solution:
+    def myAtoi(self, s):
+        digit = False
+        res = ""
+        for i in s:
+            if i == ' ' and digit == False:
+                continue
+            elif i == '+' and digit == False:
+                continue
+            elif i == '-' and digit == False:
+                res += i
+                continue
+            elif i == ' ' and digit == True:
+                break
+            elif i == '+' and digit == True:
+                break
+            elif i == '-' and digit == True:
+                break
+            elif not i.isdigit() and digit == True:
+                break
+            elif i.isdigit():
+                digit = True
+                res += i
+            else:
+                return 0
+        res = int(res)
+        if res > 2 ** 31 - 1:
+            res = 2 ** 31 - 1
+        elif res < -2 ** 31:
+            res = -2 ** 31
+        return res
+
+s1 = "42"
+s2 = "   -42"
+s3 = "42 days"
+s4 = "a42 days"
+s5 = "3.1415"
+slt = Solution()
+print(slt.myAtoi(s1))
+print(slt.myAtoi(s2))
+print(slt.myAtoi(s3))
+print(slt.myAtoi(s4))
+print(slt.myAtoi(s5))

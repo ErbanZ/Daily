@@ -1,0 +1,19 @@
+import pytesseract
+import cv2 as cv
+
+# tesseract-OCR
+pytesseract.pytesseract.tesseract_cmd = r'D:\Program Files\Programs\Tesseract-OCR\tesseract.exe'
+
+# 读取图片
+img = cv.imread(r'daily-python\23y\02\img\captcha1.png')
+res = cv.fastNlMeansDenoisingColored(img,None,30,30,7,21)
+gray_img = cv.cvtColor(res, cv.COLOR_BGR2GRAY)
+
+# #显示图像
+cv.imshow('captcha', gray_img)
+
+# 打印字符
+print(pytesseract.image_to_string(img))
+
+cv.waitKey(0)
+cv.destroyAllWindows()

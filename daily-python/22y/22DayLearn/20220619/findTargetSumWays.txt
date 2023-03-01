@@ -1,0 +1,19 @@
+class Solution:
+    count = 0
+    def findTargetSumWays(self, nums, target):
+        self.dfs(nums, -1, 0, target)
+        return self.count
+
+    def dfs(self, nums, i, sum, target):
+        if i == len(nums) - 1:
+            if sum == target:
+                self.count += 1
+            return
+        self.dfs(nums, i+1, sum+nums[i+1], target)
+        self.dfs(nums, i+1, sum-nums[i+1], target)
+
+nums = [1,1,1,1,1]
+target = 3
+
+slt = Solution()
+print(slt.findTargetSumWays(nums, target))

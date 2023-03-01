@@ -1,0 +1,31 @@
+class Solution:
+    def isValid(self, s):
+        s = list(s)
+        n = len(s)
+        stack = []
+        if n % 2 != 0: return False
+        for i in range(n):
+            val = s.pop()
+            if val == '}':
+                stack.append('{')
+            elif val == ']':
+                stack.append('[')
+            elif val == ')':
+                stack.append('(')
+            elif not stack:
+                return False
+            elif stack.pop() != val:
+                return False
+        return False if stack else True
+
+s1 = "()[]{}"
+s2 = "([)]"
+s3 = "{[]}"
+s4 = "{["
+s5 = "]}"
+slt = Solution()
+print(slt.isValid(s1))
+print(slt.isValid(s2))
+print(slt.isValid(s3))
+print(slt.isValid(s4))
+print(slt.isValid(s5))

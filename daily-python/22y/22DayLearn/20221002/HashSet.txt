@@ -1,0 +1,22 @@
+class myHashSet:
+
+    def __init__(self):
+        self.hashSize = 100
+        self.hashSet = [[]] * self.hashSize
+
+    def hash(self, key):
+        return key % 100
+
+    def add(self, key):
+        idx = self.hash(key)
+        if key not in self.hashSet[idx]:
+            self.hashSet[idx] += [key]
+    
+    def remove(self, key):
+        idx = self.hash(key)
+        if key in self.hashSet[idx]:
+            self.hashSet[idx].remove(key)
+    
+    def contains(self, key):
+        idx = self.hash(key)
+        return key in self.hashSet[idx]

@@ -1,0 +1,46 @@
+from random import randint
+import timeit
+import sortMethod
+
+def generateRandomArray(n, min, max):
+    arr = []
+    arr = [randint(min, max) for x in range(n)]
+    return arr
+
+def generateNearlyOrderedArray(n, swapTimes):
+    arr = []
+    for i in range(n):
+        arr.append(i)
+    for j in range(swapTimes):
+        posx = randint(0, n-1)
+        posy = randint(0, n-1)
+        arr[posx], arr[posy] = arr[posy], arr[posx]
+    return arr
+
+def isSorted(alist):
+    for i in range(0, len(alist)-1):
+        if alist[i] > alist[i+1]:
+            return False
+    return True
+
+# func表示要检测的算法函数，alist为传入的数列
+def testSort(func, alist):
+    alist =  func(alist)
+    # print(alist)
+    # alist = [3,2,1]
+    assert isSorted(alist), func.__name__ + " 排序算法错误!!!"
+
+if __name__ == "__main__":
+    alist = generateNearlyOrderedArray(500, 500)
+    print(alist)
+    # alist = generateRandomArray(10, 1, 100)
+    testSort(sortMethod.quickSort, alist)
+    t1 = timeit.Timer('testSort(sortMethod.bubbleSort, alist)', 'import sortMethod; from __main__ import testSort, alist')
+    t2 = timeit.Timer('testSort(sortMethod.selectionSort, alist)', 'import sortMethod; from __main__ import testSort, alist')
+    t3 = timeit.Timer('testSort(sortMethod.insertionSort, alist)', 'import sortMethod; from __main__ import testSort, alist')
+    t4 = timeit.Timer('testSort(sortMethod.quickSort, alist)', 'import sortMethod; from __main__ import testSort, alist')
+    print('sortMethod.bubbleSort: %s seconds' %t1.repeat(repeat=5, number=10))
+    # print('sortMethod.selectionSort: %s seconds' %t2.repeat(repeat=5, number=100))
+    # print('sortMethod.insertionSort: %s seconds' %t3.repeat(repeat=5, number=10))
+    print('sortMethod.insertionSort: %s seconds' %t4.repeat(repeat=5, number=10))
+    

@@ -1,0 +1,16 @@
+import random
+import time
+
+def generate_random_str(len):
+    str = ""
+    for i in range(len):
+        str += random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+    return str
+
+
+t = time.time()
+ts = int(t)
+tms = int(round(t * 1000))
+
+for i in range(100000):
+    print("imei: ", generate_random_str(12), "\trequest_id: ", int(time.time()))

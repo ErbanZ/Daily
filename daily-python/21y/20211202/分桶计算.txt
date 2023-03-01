@@ -1,0 +1,22 @@
+"""ascii码计算
+"""
+
+import hashlib
+
+for i in range(10):
+    GROUP_NUM = 3
+    # md5
+    md5 = hashlib.md5()
+    # 串号处理
+    sum = 0
+    sn = input("输入串号：")
+    # sn = "SM75MZ6BZYAD"
+    md5.update(sn.encode())
+    md5_string = md5.hexdigest()
+    for c in md5_string:
+        sum += ord(c)
+
+    group = sum % GROUP_NUM + 1
+
+    print(f"md5_string: {md5_string}")
+    print(f"group: {group}") 

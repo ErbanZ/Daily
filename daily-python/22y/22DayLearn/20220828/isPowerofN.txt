@@ -1,0 +1,11 @@
+# 判断 N 是否是 n 的幂
+
+def isPowerofN(n, N):
+    # n 的 0 次幂即等于 1
+    if N == 1:
+        return True
+    elif N < 1:
+        return False
+    return True if isPowerofN(n, N / n) else False
+
+print(isPowerofN(3, 9))

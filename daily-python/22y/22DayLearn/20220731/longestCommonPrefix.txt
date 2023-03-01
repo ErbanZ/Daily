@@ -1,0 +1,24 @@
+class Solution:
+    def longestCommonPrefix(self, strs):
+        s = strs[0]
+        strs = strs[1:]
+        for val in strs:
+            count = 0
+            n = min(len(s), len(val))
+            for i in range(n):
+                if s[i] == val[i]:
+                    count += 1
+                else:
+                    break
+            s = s[:count]
+        return s
+
+slt = Solution()
+strs1 = ["flower","flow","flight"]
+strs2 = ["dog","racecar","car"]
+strs3 = ["aaa","aa","aaa"]
+strs4 = ["cir","car"]
+print(slt.longestCommonPrefix(strs1))
+print(slt.longestCommonPrefix(strs2))
+print(slt.longestCommonPrefix(strs3))
+print(slt.longestCommonPrefix(strs4))

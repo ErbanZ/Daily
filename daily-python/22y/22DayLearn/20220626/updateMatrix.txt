@@ -1,0 +1,80 @@
+class Solution:
+    def updateMatrix(self, mat):
+        row, col = len(mat), len(mat[0])
+        for i in range(row):
+            for j in range(col):
+                if mat[i][j] == 1:
+                    self.getDistance(mat, i, j)
+        return mat
+
+    def getDistance(self, mat, matR, matC):
+        row, col = len(mat), len(mat[0])
+        queue = [(matR, matC)]
+        level, flag = 0, False
+        visited = []
+        while queue and flag == False:
+            level += 1
+            size = len(queue)
+            for i in range(size):
+                root = queue.pop(0)
+                visited.append(root)
+                r, c = root[0], root[1]
+                if c-1 >= 0 and mat[r][c-1] == 1 and mat[r][c-1] not in visited:
+                    queue.append((r, c-1))
+                elif c-1 >= 0 and mat[r][c-1] == 0:
+                    flag = True
+                    break
+                if r-1 >= 0 and mat[r-1][c] == 1 and mat[r][c-1] not in visited:
+                    queue.append((r-1, c))
+                elif r-1 >= 0 and mat[r-1][c] == 0:
+                    flag = True
+                    break
+                if c+1 < col and mat[r][c+1] == 1 and mat[r][c-1] not in visited:
+                    queue.append((r, c+1))
+                elif c+1 < col and mat[r][c+1] == 0:
+                    flag = True
+                    break
+                if r+1 < row and mat[r+1][c] == 1 and mat[r][c-1] not in visited:
+                    queue.append((r+1, c))
+                elif r+1 < row and mat[r+1][c] == 0:
+                    flag = True
+                    break
+
+        mat[matR][matC] = level
+
+
+mat1 = [[0,0,0],[0,1,0],[0,0,0]]
+mat2 = [[0,0,0],[0,1,0],[1,1,1]]
+mat = [
+    [1,0,1,1,0,0,1,0,0,1],
+    [0,1,1,0,1,0,1,0,1,1],
+    [0,0,1,0,1,0,0,1,0,0],
+    [1,0,1,0,1,1,1,1,1,1],
+    [0,1,0,1,1,0,0,0,0,1],
+    [0,0,1,0,1,1,1,0,1,0],
+    [0,1,0,1,0,1,0,0,1,1],
+    [1,0,0,0,1,1,1,1,0,1],
+    [1,1,1,1,1,1,1,0,1,0],
+    [1,1,1,1,0,1,0,0,1,1]
+    ]
+mat3 = [
+    [1,1,0,0,1,0,0,1,1,0],
+    [1,0,0,1,0,1,1,1,1,1],
+    [1,1,1,0,0,1,1,1,1,0],
+    [0,1,1,1,0,1,1,1,1,1],
+    [0,0,1,1,1,1,1,1,1,0],
+    [1,1,1,1,1,1,0,1,1,1],
+    [0,1,1,1,1,1,1,0,0,1],
+    [1,1,1,1,1,0,0,1,1,1],
+    [0,1,0,1,1,0,1,1,1,1],
+    [1,1,1,0,1,0,1,1,1,1]
+    ]
+slt = Solution()
+# print(slt.updateMatrix(mat1))
+# print(slt.updateMatrix(mat2))
+# print(slt.updateMatrix(mat))
+print(slt.updateMatrix(mat3))
+# slt.getDistance(mat, 9, 0)
+# slt.getDistance(mat2, 2, 0)
+# slt.getDistance(mat2, 2, 1)
+# slt.getDistance(mat2, 2, 2)

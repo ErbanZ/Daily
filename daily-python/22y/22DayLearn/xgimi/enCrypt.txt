@@ -1,0 +1,11 @@
+# # AES加密
+# # 加密模式：ECB
+# # 填充方式：pkcs7padding
+# # 输出格式：base64
+# def enCrypt(data, key):
+#     res = ''
+#     return res
+
+# data = '{"rxpn":"Product_lr08","gimiPid":"RVF4N485EXB8","xgimiDeviceName":"Product_lr08","gmuiVersion":"4.4.2.22","gimiDevice":"Product_lr08","deviceMac":"80:0B:52:12:FE:06","systemVersion":"v12.15.165.0413","versionCode":4060001,"pn":"Product_lr08"}'
+# key = "H9846F3UTOXBW05SIEGKD2CVQRJZLPAN"
+# print(enCrypt(data, key))

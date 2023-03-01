@@ -1,0 +1,12 @@
+import logging
+import re
+
+codeString = r"您的验证码是7392，验证码有效时间5分钟。请妥善保管勿提供给他人使用，谢谢！"
+
+# matchObj = re.search(r"\d{4}", codeString)
+matchObj = re.search(r"\d{4}", codeString)
+
+if matchObj:
+    print("search --> searchObj.group() : ", matchObj.group())
+else:
+    print("No match!!")

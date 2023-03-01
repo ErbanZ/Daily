@@ -1,0 +1,211 @@
+import os
+import re
+import csv
+import json
+import requests
+
+# 单线程下载器
+URL = 'http://asset.t.xgimi.com/apis/inner/app/info/pageQuery'
+
+# 请求头参数
+ContentType, ContentType_key = 'Content-Type', 'application/json'
+appId, appId_key = 'appId', '0407296056293301'
+Cookie, Cookie_key = 'Cookie', r'UM_distinctid=17a8a5669b16a8-0a66262ac56f29-7a697e6e-144000-17a8a5669b2116e; passTokenSource=1; HTTP-REFERER=d3d3LnQyLnhnaW1pLmNvbS9pbmRleC5odG1s; _jzqc=1; cookieKey=1628135983673; _jzqa=1.1463045701354418000.1626058866.1626251104.1628142062.4; _jzqc=1; _jzqx=1.1626058866.1628142062.3.jzqsr=xgimi%2Enet|jzqct=/.jzqsr=shop%2Exgimi%2Ecom|jzqct=/goods/1211800798%2Ehtml; _gcl_au=1.1.2102407194.1628142076; _ga=GA1.2.403578548.1628142081; _fbp=fb.1.1628142081536.14722929; __zlcmid=15QkEQzsqMs21s3; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22a36f2eff67c7ad03f7e434efc124ce99%22%2C%22first_id%22%3A%2217a98a93dc9c28-0f814fe6e1a33a-7a697e6e-1327104-17a98a93dca96f%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22%24device_id%22%3A%2217a98a93dc9c28-0f814fe6e1a33a-7a697e6e-1327104-17a98a93dca96f%22%7D; uid=17617; _jzqx=1.1626058866.1628228793.4.jzqsr=xgimi%2Enet|jzqct=/.jzqsr=shop%2Et%2Exgimi%2Ecom|jzqct=/refund%2Ehtml; _jzqckmp=1; _jzqa=1.1463045701354418000.1626058866.1626251104.1628142062.4; passToken=YjUyNFViWkRXdXE1VzI0cFhCTHp5aGE1dFB4eE94cGdCTVc1ZGExQXNSSzcxMEdrWUxLdFlPNCtQUFBFVkF6VFBQeXFQOWFNdndvY2dQVFZSUkZIZ0psMkpoVC9PbFdldnFTb0lteEJ2aXRsSjY2TDEveGZYWm8xZWxoV0xLc1ZXM0J3d2JjNEplQ21heExjeGFDVVNnUDI1NGdYZGRWK2tOM3VkMGRYMXI2MHlJM1pDTW8zWEdR; cartNumber=1; _jzqb=1.50.10.1628228793.1; GM_ADStartTime=1628231427506; XSRF-TOKEN=eyJpdiI6IklDM0tjcWMrbzQ1cUc2bEdsVXVyQnc9PSIsInZhbHVlIjoiTjhxUFBIVG9FQ3pYUGZlbHNKNGhwT1JYWnV1bHVibDhPVmZhZ2JBUUdtU1VhblwvMVZPUHZYbVIzdTFjXC9KU2hSVGtnSDRjQkduYzhHS0d2NkFFWjJVQT09IiwibWFjIjoiNjRmYWY3MWNkNzZlZmYxNmI4ZDM3NWQyNWI5ODRiOTFlMzQ4NThkODlmNzZkNjE4YzY0ODlhNjM4NDg4YmZlZiJ9; laravel_session=eyJpdiI6ImNZVUJqVUZJSmUxd0RJaGJRZ2UwSWc9PSIsInZhbHVlIjoibk5EMlJXdGVCemxBdDcxNFBRaTNTRHBUcVwvUVNQYUN6YjZqQ0ROS3daaGVsSHRRcUJHRlExOUJCWFVHWnRYN01aQXNqRDM0bmxOTnc1XC93WWdaV01RQT09IiwibWFjIjoiMGNkY2EyZjA1NWI1YmNkYzI1MWZjODQ5YmQwM2JjOWExOGM0MTUzNzEzZGQ4MjYwYzliNzFjZTUyZmJmNDhjZCJ9; GM_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0Z3QiOiJUR1QtNTMzYmY5MmQtOWI5Ny00MzVmLWFkNmYtYjQyNjhhMzkyNTc1IiwibG9naW5Vc2VyIjoie1widW5pcXVlSWRcIjo2MTE5MzI0ODgwMDQxNDUxNTIsXCJ1dWlkXCI6XCJNN0FZMTdQU1wiLFwidWlkXCI6MTc2MTcsXCJ1c2VyTmFtZVwiOlwibWF4LnpoYW5nXCIsXCJyZWFsTmFtZVwiOlwi5byg6b6Z5LmdXCIsXCJwYXNzd29yZFwiOlwiWmxqODY2MDEyMjJcIixcInVzZXJTdGF0dXNcIjowLFwibGRhcExvZ2luXCI6MSxcInJlZGlyZWN0VXJsXCI6XCJodHRwOi8vYXNzZXQudC54Z2ltaS5jb20vYXBwL2luZm8vaW5kZXhcIixcInRndFwiOlwiVEdULTUzM2JmOTJkLTliOTctNDM1Zi1hZDZmLWI0MjY4YTM5MjU3NVwiLFwiY2xhc3NpZmljYXRpb25cIjpcIlwifSIsInJlZGlyZWN0VXJsIjoiaHR0cDovL2Fzc2V0LnQueGdpbWkuY29tL2FwcC9pbmZvL2luZGV4In0.ai0TYF-Js2jinlsHKvulO_bYD8wMebqHft7TNLAF7Iw'
+token, token_key = 'token', r'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0Z3QiOiJUR1QtNTMzYmY5MmQtOWI5Ny00MzVmLWFkNmYtYjQyNjhhMzkyNTc1IiwibG9naW5Vc2VyIjoie1widW5pcXVlSWRcIjo2MTE5MzI0ODgwMDQxNDUxNTIsXCJ1dWlkXCI6XCJNN0FZMTdQU1wiLFwidWlkXCI6MTc2MTcsXCJ1c2VyTmFtZVwiOlwibWF4LnpoYW5nXCIsXCJyZWFsTmFtZVwiOlwi5byg6b6Z5LmdXCIsXCJwYXNzd29yZFwiOlwiWmxqODY2MDEyMjJcIixcInVzZXJTdGF0dXNcIjowLFwibGRhcExvZ2luXCI6MSxcInJlZGlyZWN0VXJsXCI6XCJodHRwOi8vYXNzZXQudC54Z2ltaS5jb20vYXBwL2luZm8vaW5kZXhcIixcInRndFwiOlwiVEdULTUzM2JmOTJkLTliOTctNDM1Zi1hZDZmLWI0MjY4YTM5MjU3NVwiLFwiY2xhc3NpZmljYXRpb25cIjpcIlwifSIsInJlZGlyZWN0VXJsIjoiaHR0cDovL2Fzc2V0LnQueGdpbWkuY29tL2FwcC9pbmZvL2luZGV4In0.ai0TYF-Js2jinlsHKvulO_bYD8wMebqHft7TNLAF7Iw'
+# 构造请求头
+headers = {ContentType: ContentType_key,
+            appId: appId_key,
+            Cookie: Cookie_key,
+            token: token_key
+            }
+
+Page = {'currentPage' : 1, 'pageSize' : 20}
+# Page = {'currentPage' : 119, 'pageSize' : 20}
+TotalPage, TotalRecord = 211, 4214
+CurrentAppNum = 0   # 统计当前apk下载数量
+# CurrentAppNum = 4120    # 统计当前apk下载数量
+startPage = CurrentAppNum // 20
+PageList = 0
+AppVersionNum = 0
+
+# csv文件对象
+filename = 'APK_Report' + '.csv'
+csvfile = open(filename, 'w', encoding='utf-8', newline='' "")
+
+# 基于文件对象构建 csv写入对象
+csv_writer = csv.writer(csvfile)
+
+# 列表头
+csv_writer.writerow(['ApkName', 'Version', 'DownLoadStatus', 'DownLoadUrl'])
+
+def installapk(fileobject):
+    # 基于文件对象构建 csv写入对象
+    csv_writer = csv.writer(csvfile)
+
+    # currentPage, pageSize = 'currentPage', 'pageSize'
+    # 请求参数封装Json
+    datas = json.dumps({'currentPage': Page['currentPage'], 'pageSize': Page['pageSize']})
+
+    # Post请求
+    r = requests.post(URL, data=datas, headers=headers)
+
+    # DownloadUrl获取
+    AppList = r.json()['data']['data']
+    AppVersionNum = len(AppList[PageList]['appVersionInfoQueryResList'])
+    for i in range(AppVersionNum):
+        ishttp = True
+        ishttps = True
+        isDownloadUrl = False
+
+        AppVersionList = AppList[PageList]['appVersionInfoQueryResList'][i]
+
+        # apk名字 = 应用名 + 应用版本id（防止重名）
+        apkName = AppVersionList['apkName']
+        # 处理特殊字符
+        apkName = re.sub('[\/:*?"<>|]', '-', apkName)
+
+        ApkName = apkName + '_' +str(AppVersionList['appVersionId'])
+        # 处理特殊字符
+        ApkName = re.sub('[\/:*?"<>|]', '-', ApkName)
+
+        # 获取重定向地址
+        Location_DownloadUrl = AppVersionList['downloadUrl']
+        if Location_DownloadUrl:
+            isDownloadUrl = True
+        else:
+            csv_writer.writerow([apkName, str(AppVersionList['appVersionId']), 'NONE', 'NONE'])
+            print('None')
+
+        # 下载文件配置
+        ApkFileFolder = 'D:/apk/' + '第' + str(Page['currentPage']) + '页/' + apkName
+        # ApkFile = ApkFileFolder + '/' + ApkName + '.apk'
+        # TxtFile = ApkFileFolder + '/' + ApkName + '.txt'
+        # print(ApkFile)
+
+        # # 打印应用名称
+        # file = 'D:/test.txt'
+        # with open(file, 'a+', encoding='utf-8') as f:
+        #     # 加\n换行显示
+        #     f.write(ApkFile + '\n')
+
+        ishttp = Location_DownloadUrl.startswith('http://')
+        ishttps = Location_DownloadUrl.startswith('https://')
+        # 判断是否为Https链接，若不是则改为Https链接下载
+        if ishttp:
+            Location_DownloadUrl_List = list(Location_DownloadUrl)
+            Location_DownloadUrl_List.insert(4, 's')
+            Location_DownloadUrl = ''.join(Location_DownloadUrl_List)
+            # print('ishttp: ', ishttp, Location_DownloadUrl, ApkFile)
+        elif ishttps:
+            # print('ishttps: ', ishttps, Location_DownloadUrl, ApkFile)
+            pass
+
+    # # 关闭请求，释放内存
+    # r.close()
+    # del(r) 
+
+        tmp_Location_DownloadUrl = Location_DownloadUrl
+        # 禁止DownloadUrl重定向，获取其重定向后地址，否则直接下载/记录报错
+        if isDownloadUrl:
+            Location_DownloadUrl = requests.get(Location_DownloadUrl, headers=headers, allow_redirects=False)
+        else:
+            break
+            # pass
+
+        if Location_DownloadUrl.status_code == 302:
+            # 获取其重定向后aliyun下载地址
+            DownloadUrl = Location_DownloadUrl.headers['Location']
+            # print(DownloadUrl)
+
+            csv_writer.writerow([apkName, str(AppVersionList['appVersionId']), '重定向下载', DownloadUrl])
+
+            # ApkData = requests.get(DownloadUrl)
+            # # print('status_code: 302 →', ApkData.status_code, ApkFile)
+
+            # ApkFileFolder = ApkFileFolder + 'code302to' + str(ApkData.status_code) + '/'
+            # ApkFile = ApkFileFolder + ApkName + '.apk'
+
+            # if not os.path.exists(ApkFileFolder):
+            #     os.makedirs(ApkFileFolder)
+            # else:
+            #     pass
+
+            # with open(ApkFile, 'wb') as f:
+            #     f.write(ApkData.content)
+            #     # f.write(ApkData)
+            # ApkData.close()
+            # del(ApkData)
+
+        elif Location_DownloadUrl.status_code == 200:
+            # 如果可以下载
+            if not Location_DownloadUrl.encoding:
+                # print(tmp_Location_DownloadUrl)
+
+                csv_writer.writerow([apkName, str(AppVersionList['appVersionId']), '直接下载', tmp_Location_DownloadUrl])
+
+                # ApkData = Location_DownloadUrl
+
+                # ApkFileFolder = ApkFileFolder + 'code200to' + str(ApkData.status_code) + '/'
+                # ApkFile = ApkFileFolder + ApkName + '.apk'
+
+                # # print('status_code: 200 →', ApkData.status_code, ApkFile)
+                # if not os.path.exists(ApkFileFolder):
+                #     os.makedirs(ApkFileFolder)
+                # else:
+                #     pass
+
+                # with open(ApkFile, 'wb') as f:
+                #     f.write(ApkData.content)
+
+                # ApkData.close()
+                # del(ApkData)
+
+            # 如果不能下载,返回json本文
+            elif Location_DownloadUrl.json() and Location_DownloadUrl.json()['status'] == False:
+                # print(tmp_Location_DownloadUrl)
+                # print('status_code: 200', ApkFile, Location_DownloadUrl.json())
+
+                csv_writer.writerow([apkName, str(AppVersionList['appVersionId']), '无法下载', tmp_Location_DownloadUrl])
+
+                # ApkFileFolder = ApkFileFolder + 'statusFalse' + '/'
+                # TxtFile = ApkFileFolder + '/' + ApkName + '.txt'
+
+                # if not os.path.exists(ApkFileFolder):
+                #     os.makedirs(ApkFileFolder)
+                # else:
+                #     pass
+
+                # with open(TxtFile, 'w+') as f:
+                    
+                #     f.write(str(tmp_Location_DownloadUrl))
+
+    # 关闭请求，释放内存
+    r.close()
+    del(r) 
+
+
+    # with open(ApkFile,'wb+') as f:
+    #     # 分块写入文件
+    #     for chunk in ApkData.iter_content(chunk_size=1024):
+    #         if chunk:
+    #             f.write(chunk)
+
+if __name__ == "__main__":
+    # 第currentPage页
+    # for currentPage in range(TotalPage+1):
+    for currentPage in range(startPage-1, TotalPage+1):
+        Page['currentPage'] = currentPage + 1
+        # 第currentPage页中第i个应用
+        for i in range(Page['pageSize']):
+            if CurrentAppNum > TotalRecord:
+                break
+            installapk(csvfile)
+            PageList += 1
+            CurrentAppNum += 1
+            print(CurrentAppNum)
+        PageList = 0
+
+    # 关闭对象
+    csvfile.close()
+    # installapk()
+

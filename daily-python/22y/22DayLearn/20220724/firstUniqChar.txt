@@ -1,0 +1,16 @@
+class Solution:
+    def firstUniqChar(self, s):
+        for x in s:
+            if s.find(x) == s.rfind(x):
+                return s.find(x)
+        return -1 
+
+s1 = "leetcode"
+s2 = "loveleetcode"
+s3 = "aabb"
+
+slt = Solution()
+print(slt.firstUniqChar(s1))
+print(slt.firstUniqChar(s2))
+print(slt.firstUniqChar(s3))
+

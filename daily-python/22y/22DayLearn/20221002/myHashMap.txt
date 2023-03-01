@@ -1,0 +1,51 @@
+class MyHashMap:
+
+    def __init__(self):
+        self.hashMap = list()
+
+    def put(self, key, value):
+        idx = self.findKey(key)
+        if idx:
+            self.hashMap[idx-1][1] = value
+        else:
+            self.hashMap += [[key, value]]
+
+    def get(self, key):
+        idx = self.findKey(key)
+        if idx:
+            return self.hashMap[idx-1][1]
+        else:
+            return -1
+
+    def remove(self, key):
+        idx = self.findKey(key)
+        if idx:
+            self.hashMap.pop(idx-1)
+
+
+    def findKey(self, key):
+        for i in range(len(self.hashMap)):
+            if self.hashMap[i][0] == key:
+                return i + 1
+        return
+
+myMap = MyHashMap()
+myMap.remove(2)
+myMap.put(1,1)
+myMap.put(2,2)
+myMap.get(1)
+myMap.get(3)
+myMap.put(2,1)
+myMap.get(2)
+myMap.remove(2)
+myMap.get(2)
+
+# nums = [[1, 1], [2, 4], [3, 9]]
+
+# def isKey(nums, key):
+#     for i in range(len(nums)):
+#         if nums[i][0] == key:
+#             return i
+#     return
+
+# print(isKey(nums, 4))

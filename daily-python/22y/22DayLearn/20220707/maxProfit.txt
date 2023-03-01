@@ -1,0 +1,34 @@
+class Solution:
+    def maxProfit(self, prices):
+        res = 0
+        slow, fast = 0, 0
+        # for fast in range(len(prices)):
+        while fast < len(prices):
+            if fast == slow:
+                pass
+            elif prices[fast] > prices[slow]:
+                temp = fast
+                while fast < len(prices)-1:
+                    fast += 1
+                    if prices[fast] >= prices[temp]:
+                        temp = fast
+                    else:
+                        fast = temp
+                        break
+                res += prices[fast] - prices[slow]
+                slow = fast
+            elif prices[fast] <= prices[slow]:
+                slow = fast
+            fast += 1
+        return res
+
+prices1 = [7,1,5,3,6,4]
+prices2 = [1,2,3,4,5]
+prices3 = [7,6,4,3,1]
+prices4 = [1,2,4,11,7]
+
+slt = Solution()
+print(slt.maxProfit(prices1))
+print(slt.maxProfit(prices2))
+print(slt.maxProfit(prices3))
+print(slt.maxProfit(prices4))

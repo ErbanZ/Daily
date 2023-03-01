@@ -1,0 +1,8 @@
+n = 0b00011100
+bitStr = str(bin(n)).split('b')[1]
+bitStr = bitStr[::-1] + '0' * (8-len(bitStr))
+bitStr = bitStr[::-1]
+nums = 0
+for i, v in enumerate(bitStr):
+    nums += int(v) * 2 ** i
+print(nums)

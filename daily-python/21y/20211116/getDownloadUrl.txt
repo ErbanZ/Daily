@@ -1,0 +1,43 @@
+from xml.dom.minidom import parse
+import requests
+
+# 所期望的状态码
+NiceStatusCode = 200
+
+# NiceStatusCode个数
+i = 0
+
+# 使用miniDom解析器打开 xml 文档
+DOMTree = parse("11_16_requirement//xgimi.xml")
+ListBucketResult = DOMTree.documentElement
+
+# test
+if ListBucketResult.hasAttribute("xmlns"):
+    print("xmlns : {}".format(ListBucketResult.getAttribute("xmlns")))
+
+# 特殊结构单独处理
+NextMarker = ListBucketResult.getElementsByTagName("NextMarker")[0]
+NextMarker_Downloadurl = NextMarker.childNodes[0].data
+print("NextMarker : {}".format(NextMarker_Downloadurl))
+
+# 循环处理contents里的key值
+ContentsList = ListBucketResult.getElementsByTagName("Contents")
+for contents in ContentsList:
+    key = contents.getElementsByTagName("Key")[0]
+    Downloadurl = key.childNodes[0].data
+    size = contents.getElementsByTagName("Size")[0]
+    size = size.childNodes[0].data
+
+    # 假定可下载的包size > 0
+    if int(size) > 0:
+        # 请求的下载链接，能否返回200
+        Downloadurl = "http://update04.xgimi.net/" + Downloadurl
+        print("Downloadurl : {} \t size : {}".format(Downloadurl, size))
+        UrlResponse = requests.get(Downloadurl, stream=True)
+        if UrlResponse.status_code == NiceStatusCode:
+            i += 1
+        # 关闭请求  释放内存
+        UrlResponse.close()
+        del(UrlResponse)          
+
+        print(i)

@@ -1,0 +1,18 @@
+def quickSort(nums):
+    sortHelper(nums, 0, len(nums))
+
+def sortHelper(nums, start, end):
+    i, j = start, end
+    pivot = nums[i]
+    while i < j:
+        while nums[j] > pivot:
+            j -= 1
+        nums[i] = nums[j]
+        i += 1
+        while nums[i] <= pivot:
+            i += 1
+        nums[j] = nums[i]
+        j -= 1
+    nums[i] = pivot
+    sortHelper(nums, start, i)
+    sortHelper(nums, i+1, end)

@@ -1,0 +1,42 @@
+from operator import le
+
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        if len(s) % 2 == 1:
+            return False
+        left, right = list(s), list()
+        rtmp = left.pop()
+        for i in range(len(s) >> 1):
+            l = left.pop()
+            if right:
+                r = right[0]
+                if l == '(' and r == ')':
+                    right.pop()
+                elif l == '[' and r == ']':
+                    right.pop()
+                elif l == '{' and r == '}':
+                    right.pop()
+
+            if l == '(' and rtmp == ')':
+                pass
+            elif l == '[' and rtmp == ']':
+                pass
+            elif l == '{' and rtmp == '}':
+                pass
+            else:
+                right.append(l)
+                right.append(rtmp)
+            if left:
+                rtmp = left.pop()
+            
+            
+        return False if right else True
+
+slt = Solution()
+s1 = r"()[]{}"
+s2 = r"(}"
+s3 = r"{[()]}"
+# print(slt.isValid(s1))
+# print(slt.isValid(s2))
+print(slt.isValid(s3))

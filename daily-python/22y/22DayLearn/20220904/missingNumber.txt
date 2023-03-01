@@ -1,0 +1,16 @@
+class Solution:
+    def missingNumber(self, nums):
+        res = 0
+        n = len(nums)
+        if n-1 == max(nums): return n
+        nums.sort()
+        for i in range(n):
+            if i != nums[i]:
+                return i
+        return res
+
+# nums = [0, 1]
+nums = [3, 0, 1]
+slt = Solution()
+print(slt.missingNumber(nums))
+# print(max([0, 1, 2, 9]))

@@ -1,0 +1,17 @@
+def moveZeroes(nums):
+    slow, fast = 0, 0
+    while slow < len(nums) and fast < len(nums):
+        if nums[slow] != 0:
+            slow += 1
+        fast += 1
+        if slow > len(nums)-1 or fast > len(nums)-1:
+            break
+        if nums[fast] != 0 and nums[slow] == 0:
+            nums[fast], nums[slow] = nums[slow], nums[fast]
+
+    print(nums)
+
+# nums = [0,1,0,3,12]
+nums = [0]
+
+moveZeroes(nums)

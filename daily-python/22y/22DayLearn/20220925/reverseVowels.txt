@@ -1,0 +1,20 @@
+s = "leetcode"
+
+vowels = "aeiouAEIOU"
+strStack = []
+vowelStack = []
+
+def reverseVowels(s):
+    # 1)
+    vowelStack = [i for i in s if i in vowels]
+    for i in s:
+        if i in vowels:
+            i = '*'
+        strStack += [i]
+    for i in range(len(strStack)):
+        if strStack[i] == '*':
+            strStack[i] = vowelStack.pop()
+
+
+print(reverseVowels(s))
+

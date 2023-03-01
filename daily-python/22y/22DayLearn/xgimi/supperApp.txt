@@ -1,0 +1,28 @@
+import json
+import time
+import hashlib
+
+# supperApp 生成 sign 和 timestamp
+SECRET = '9y$B&E)H@McQeThW'
+Timestamp = int(round(time.time() * 1000))
+
+body = '{"mobile":"18722948865","type":2}'
+# json to dict
+bodyDict = json.loads(body)
+# add Timestamp
+bodyDict["timestamp"] = str(Timestamp)
+
+# dict to json and sort
+data = json.dumps(bodyDict, sort_keys=True, indent=4, separators=(',', ':'))
+# json to dict
+dataDict = json.loads(data)
+
+dataList = []
+for i in dataDict.keys():
+    dataList += [str(i) + '=' + str(dataDict[i])]
+
+signString = "&".join(dataList) + "&" + SECRET
+sign = hashlib.md5(bytes(signString, encoding = "utf-8")).hexdigest()
+
+print(signString)
+print(sign)

@@ -1,0 +1,45 @@
+class Solution:
+    def numSquares(self, n):
+        # bfs遍历
+        # level = 0
+        # queue, visited = list(), set()
+        # queue.append(0)
+        # visited.add(0)
+        # while queue:
+        #     level += 1
+        #     size = len(queue)
+        #     for i in range(size):
+        #         num = queue.pop(0)
+        #         temp = num
+        #         for j in range(1, int(n**0.5) + 1):
+        #             num = temp
+        #             num += j * j
+        #             if num == n:
+        #                 return level
+        #             elif num > n:
+        #                 break
+        #             elif num not in visited:
+        #                 queue.append(num)
+        #                 visited.add(num)                        
+        # return -1
+
+        # dp
+        dp = [None] * (n + 1)
+        for i in range(n + 1):
+            dp[i] = i
+            j = 0
+            # for j in range(i):
+            #     if i - j**2 > -1:
+            #         dp[i] = min(dp[i], dp[i - j**2] + 1)
+            while j * j <= i:
+                dp[i] = min(dp[i], dp[i - j**2] + 1)
+                j += 1
+        return dp[n]
+n1 = 6110
+n2 = 13 # 4 + 9
+n3 = 16 # 16
+
+slt = Solution()
+print(slt.numSquares(n1))
+# print(slt.numSquares(n2))
+# print(slt.numSquares(n3))

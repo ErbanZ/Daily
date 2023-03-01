@@ -1,0 +1,9 @@
+def getNum(a, b):
+    res = 0
+    res = a // 3 * 3 + b // 3
+    return res
+
+for i in range(9):
+    for j in range(9):
+        print(getNum(i, j), end='')
+    print()

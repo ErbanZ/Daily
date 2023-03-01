@@ -1,0 +1,133 @@
+# 冒泡
+def bubbleSort(nums):
+    n = len(nums)
+    # for i in range(len(nums)):
+    #     for j in range(i, len(nums)):
+    #         if nums[i] > nums[j]:
+    #             nums[i], nums[j] = nums[j], nums[i]
+
+    # # 将小值冒泡
+    # for i in range(n):
+    #     exchange = False
+    #     for j in range(n-2, i-1, -1):
+    #         if nums[j] > nums[j+1]:
+    #             nums[j+1], nums[j] = nums[j], nums[j+1]
+    #             exchange = True
+    #     if not exchange:
+    #         break
+    # return nums
+
+    # 将大值冒泡
+    for i in range(n):
+        exchange = False
+        for j in range(n-i-1):
+            if nums[j] > nums[j+1]:
+                nums[j+1], nums[j] = nums[j], nums[j+1]
+                exchange = True
+        if not exchange:
+            break
+    return nums
+
+# 选择
+def selectionSort(nums):
+    n = len(nums)
+    # # 选择 小 → 大
+    # for i in range(n):
+    #     minIdx = i
+    #     # minIdx = n - 1
+    #     for j in range(i, n):
+    #         if nums[j] < nums[minIdx]:
+    #             minIdx = j
+    #     nums[i], nums[minIdx] = nums[minIdx], nums[i]
+
+    # 选择 大 → 小
+    for i in range(n-1, -1, -1):
+        maxIdx = i
+        # minIdx = n - 1
+        for j in range(i, -1, -1):
+            if nums[j] > nums[maxIdx]:
+                maxIdx = j
+        nums[i], nums[maxIdx] = nums[maxIdx], nums[i]
+    return nums
+
+# 插入
+def insertionSort(nums):
+    # 次次交换
+    n = len(nums)
+    # for i in range(1, n):
+    #     for j in range(i, 0, -1):
+    #         if nums[j-1] > nums[j]:
+    #             nums[j-1], nums[j] = nums[j], nums[j-1]
+    #         else:
+    #             break
+    # return nums
+
+    # 次次交换/2
+    for i in range(1, n):
+        # 寻找a[i]合适的插入位置
+        temp = nums[i]
+        for j in range(i, 0, -1):
+            if (temp < nums[j-1]):
+                nums[j] = nums[j-1]
+            else:
+                j += 1
+                break
+        nums[j-1] = temp
+    return nums
+    
+# 希尔排序
+def shellSort(nums):
+    def shellHelper(nums, start, gap):
+        n = len(nums)
+        for i in range(start+gap, n, gap):
+            temp = nums[i]
+            for j in range(i, gap-1, -gap):
+                if (temp < nums[j-gap]):
+                    nums[j] = nums[j-gap]
+                else:
+                    j += gap
+                    break
+            nums[j-gap] = temp
+
+    n = len(nums)
+    gap = n // 2
+    while gap > 0:
+        for i in range(gap):
+            shellHelper(nums, i, gap)
+        gap //= 2
+
+    return nums
+
+
+# 快速排序
+def quickSort(nums):
+    sortHelper(nums, 0, len(nums)-1)
+    return nums
+
+def sortHelper(nums, start, end):
+    if start >= end: return
+    i, j = start, end
+    pivot = nums[i]
+    while i < j:
+        while nums[j] > pivot and i < j:
+            j -= 1
+        if i < j:
+            nums[i] = nums[j]
+            i += 1
+        while nums[i] <= pivot and i < j:
+            i += 1
+        if i < j:
+            nums[j] = nums[i]
+            j -= 1
+    nums[i] = pivot
+    sortHelper(nums, start, i)
+    sortHelper(nums, i+1, end)
+
+if __name__ == "__main__":
+    nums = [6,4,3,2,5,1]
+    # nums = [1,2,3,4,6,5]
+
+    # print(bubbleSort(nums))
+    # print(selectionSort(nums))
+    # print(insertionSort(nums))
+    print(quickSort(nums))

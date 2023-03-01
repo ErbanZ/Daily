@@ -1,0 +1,19 @@
+class Solution:
+    def maxArea(self, height):
+        res = 0
+        i, j = 0, len(height)-1
+        h, w = 0, 0
+        while i < j:
+            w = j - i
+            h = min(height[i], height[j])
+            res = max(res, w*h)
+            if height[i] < height[j]:
+                i += 1
+            else:
+                j -= 1
+            
+        return res
+
+height = [1,8,6,2,5,4,8,3,7]
+slt = Solution()
+print(slt.maxArea(height))

@@ -1,0 +1,22 @@
+class Solution:
+    def moveZeroes(self, nums):
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        slow = 0
+        for fast in range(len(nums)):
+            if nums[fast] != 0:
+                nums[fast], nums[slow] = nums[slow], nums[fast]
+                slow += 1        
+
+nums = [9,0,1,0,3,12]
+nums1 = [0,1,0,3,12]
+nums2 = [0]
+
+slt = Solution()
+slt.moveZeroes(nums)
+print(nums)
+slt.moveZeroes(nums1)
+print(nums1)
+slt.moveZeroes(nums2)
+print(nums2)

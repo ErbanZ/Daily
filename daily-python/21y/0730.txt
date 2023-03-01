@@ -1,0 +1,129 @@
+from typing import Text
+import os
+import csv
+import requests
+import os
+import json
+import re
+
+
+# open()函数 with关键字
+# read、readline、write、close
+# filename = '火柴人:一击必杀code302to200'
+
+# # 处理特殊字符
+# ApkName = re.sub('[\/:*?"<>|]', '_', filename)
+
+# ApkFileFolder = 'D:/' + ApkName
+
+# if not os.path.exists(ApkFileFolder):
+#     os.makedirs(ApkFileFolder)
+
+
+# with open(ApkFileFolder + '/123.txt', 'w') as f:
+#     f.write('XGIMI, big data')
+
+# with open(ApkFileFolder + '/123.txt') as f:
+#     print(f.read())
+
+#- ------------------------------- -#
+
+# downloadurl = 'http://apps.sfcdn.org/apk/com.example.monkeydart.f55905ed5a6504728b93f6ae579a56f2.apk'
+
+# apk_data = requests.get(downloadurl)
+# with open('D:/213.apk', 'wb') as f:
+#     f.write(apk_data.content)
+
+# print(apk_data.status_code)
+
+#- ------------------------------- -#
+
+# FilePath = 'D:/apk/超猩投屏7850'
+# if not os.path.exists(FilePath):
+#     os.makedirs(FilePath)
+# else:
+#     pass
+
+#- ------------------------------- -#
+
+# a = 0
+# Page = {'currentPage' : 1, 'pageSize' : 20}
+
+# def add(a):
+#     a += 1
+#     print(Page['currentPage'])
+#     # return a
+#     Page['currentPage'] += 1
+
+
+# print(a)
+# # print(add(a))
+# add(a)
+# print(a)
+# print(Page['currentPage'])
+
+#- ------------------------------- -#
+# with open('D:/Downloads/apk/test.json', encoding='utf8') as f:
+#     jsonfile = json.load(f)
+
+# res = jsonfile['data']['data'][2]['appVersionInfoQueryResList'][0]
+# print(jsonfile['data']['data'][2]['appVersionInfoQueryResList'][0])
+# apkName = res['apkName']
+# ApkName = apkName + '_' +str(res['appVersionId'])
+# print(ApkName)
+
+#- ------------------------------- -#
+
+# # 创建文件对象
+# filename = 'testCSV' + '.csv'
+# csvfile = open(filename, 'w', encoding='utf-8', newline='' "")
+
+# # 基于文件对象构建 csv写入对象
+# csv_writer = csv.writer(csvfile)
+
+# # 列表头
+# csv_writer.writerow(['id', 'name', 'sex'])
+
+# # 列表内容
+# def test(csvfile):
+#     csv_writer = csv.writer(csvfile)
+
+#     csv_writer.writerow(['1', 'j', 'man'])
+#     csv_writer.writerow(['1', 'j', 'man'])
+#     csv_writer.writerow(['1', 'j', 'man'])
+
+# if __name__ == "__main__":
+#     test(csvfile)
+#     # 关闭对象
+#     csvfile.close()
+
+#- ------------------------------- -#
+apkdir = 'D:/apk/'
+apklist_dir = os.listdir(apkdir)
+# print(apklist_dir)
+
+filename = 'apk' + '.csv'
+csvfile = open(filename, 'w', encoding='utf-8', newline='' "")
+csv_writer = csv.writer(csvfile)
+csv_writer.writerow(['ApkName', 'DownLoadStatus', 'Other'])
+
+for i in apklist_dir:
+    apkpagelist = os.listdir(apkdir + i)
+    for j in apkpagelist:
+        idx = j.find('status')
+        if idx > 0:
+            ApkName = j[: idx]
+            DownLoadStatus = '下载失败'
+            Other = r'{"status":false,"data":"invalid app_key or sign","extra_data":null}'
+        elif idx < 0:
+            Other = ''
+            idx = j.find('code')
+            ApkName = j[: idx]
+            Location_idx = j.find('302')
+            if Location_idx > 0:
+                DownLoadStatus = '重定向下载'
+            else:
+                DownLoadStatus = '直接下载'
+
+        csv_writer.writerow([ApkName, DownLoadStatus, Other])
+csvfile.close()

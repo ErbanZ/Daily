@@ -1,0 +1,29 @@
+class Solution:
+    def evalRPN(self, tokens):
+        nums = []
+        for opt in tokens:
+            a, b = 0, 0
+            if opt == '+':
+                a, b = nums.pop(), nums.pop()
+                nums.append(b+a)
+            elif opt == '-':
+                a, b = nums.pop(), nums.pop()
+                nums.append(b-a)
+            elif opt == '*':
+                a, b = nums.pop(), nums.pop()
+                nums.append(b*a)
+            elif opt == '/':
+                a, b = nums.pop(), nums.pop()
+                nums.append(int(b/a))
+            else:
+                nums.append(int(opt))
+        return nums.pop()
+
+tokens1 = ["2","1","+","3","*"]
+tokens2 = ["4","13","5","/","+"]
+tokens3 = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+
+slt = Solution()
+print(slt.evalRPN(tokens1))
+print(slt.evalRPN(tokens2))
+print(slt.evalRPN(tokens3))
