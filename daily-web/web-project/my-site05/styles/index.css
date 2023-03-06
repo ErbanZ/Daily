@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+}
+
+html {
+    background-color: #F3EAE2;
+    /* font-family: 'Akshar', sans-serif; */
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+body {
+    width: 600px;
+    background-color: #1F9DF0;
+    padding: 50px 10px;
+    border: 5px solid #E2CEB4;
+    margin: 0 auto;
+}
+
+h1 {
+    padding: 20px 0;
+    text-align: center;
+    text-shadow: 1px 1px 1px #1E1E1E;
+}
+
+h2 {
+    padding: 10px 0;
+}
+
+.big.pic {
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+}

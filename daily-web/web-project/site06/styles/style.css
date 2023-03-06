@@ -1,0 +1,44 @@
+h1 {
+    color: #00ff00;
+}
+
+p,
+li {
+    color: cadetblue;
+}
+
+ul {
+    list-style-type: decimal;
+}
+
+li.rb {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+em.bb,
+span.bb {
+    color: #0000ff;
+    font-weight: bold;
+}
+
+p span {
+    font-weight: bold;
+}
+
+p+p {
+    font-size: 2em;
+}
+
+a:link {
+    color: pink;
+}
+
+a:visited {
+    color: green;
+}
+
+a:hover {
+    text-decoration: none;
+  }
+  
