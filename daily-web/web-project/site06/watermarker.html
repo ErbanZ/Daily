@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .watermark-container {
+            position: absolute;
+        }
+        .watermark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .watermark:after {
+            content: "WATERMARK";
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.1);
+            line-height: 1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 100px;
+            left: 0;
+            transform: rotate(-30deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="watermark-container"></div>
+    <div class="watermark-container"></div>
+
+    <!-- 页面内容 -->
+    <script>
+        function addWaterMark() {
+            
+            let parentEls = document.getElementsByClassName("watermark-container");
+            let len = parentEls.length;
+            for (var i = 0; i < len; i++) {
+                for (var j = 0; j < 3; j++) {
+                    let div = document.createElement("div");
+                    div.classList.add("watermark");
+                    // div.innerHTML = "WATERMARK";
+                    parentEls[i].appendChild(div);
+                    // Set CSS styles for the new div element
+                    div.style.top = j * 40 + "px"; // Position each watermark 40px further down
+                }
+                parentEls[i].style.left = i * 180 + "px"; // Position each watermark 40px further down
+            }
+        }
+        addWaterMark();
+    </script>
+</body>
+
+</html>

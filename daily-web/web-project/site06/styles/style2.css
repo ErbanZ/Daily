@@ -1,0 +1,54 @@
+/* 
+    外部样式表 < 内部样式表 < 内联样式
+*/
+
+* {
+    margin: 0;
+}
+
+p.red {
+    color: #ff0000;
+}
+p.pink {
+    color: #ff00ff;
+}
+
+li span {
+    color: #00ff00;
+}
+
+span.bb {
+    color: #0000ff;
+}
+
+.pink em {
+    color: #000000;
+}
+
+.outer {
+    border: 1px solid #000000;
+    font-size: 24px;
+}
+
+/* 使用函数 calc() */
+.box {
+    margin: 10px;
+    padding: 10px;
+    width: calc(50% - 24px);
+    /* width: 50% - 24px; */
+    /* width: 10rem; */
+    color: #000000;
+    background-color: #aaafff;
+    border: #000000;
+}
+
+/* @rules 规则 */
+body.white {
+    background-color: #00afff;
+}
+
+@media(min-width: 50em) {
+    body.blue {
+        background-color: #fffbe6;
+    }
+}

@@ -1,0 +1,86 @@
+/* 选择器列表（写法1） */
+h1, .head1 {
+    color: #225544;
+    font-weight: bold;
+}
+
+/* 选择器列表（写法2） */
+h1,
+.head1 {
+    color: #225544;
+    font-weight: bold;
+}
+
+
+/* 通配符选择器 */
+* {
+    margin: 0;
+}    
+
+/* 类型选择器 */
+h1 {
+    color: #225544;
+}    
+
+/* 类选择器 */
+.head1 {
+    font-weight: bold;
+}    
+
+.block {
+    display: block;
+}
+
+/* id选择器 */
+#head1 {
+    font-weight: bold;
+}
+
+#second {
+    color: #ff0000;
+}
+
+/* 属性选择器 */
+a[title] {
+    font: 16px;
+}
+a[href="www.em.com"] {
+    font: 16px;
+}
+
+/* 伪类 和 伪元素 */
+a:hover {
+    color: #444444;
+}
+a::after {
+    color: #ff0000;
+}
+
+/* 关系选择器 */
+/* * 后代选择器 * */
+div p {
+    font-size: 16px;
+}
+
+/* * 子代选择器 * */
+div > p {
+    font-size: 18px;
+}
+
+/* * 邻接兄弟选择器 * */
+div + p {
+    font-size: 18px;
+}
+
+/* * 通用兄弟选择器 * */3
+div ~ p {
+    font-size: 18px;
+}
+
+/* div ::first-line {
+    color: #ff0000;
+} */
+
+div div:first-child :first-child {
+    color: #ff0000;
+}
