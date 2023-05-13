@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+}
+
+div.box {
+    width: 300px;
+    border: 1px solid #ff0000;
+    margin: 0 auto;
+}
+
+p.center {
+    text-align: center;
+}
+
+img.anime {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+}
+
+h2.blue {
+    color: #00aaff;
+    text-align: center;
+}
+
+button.center {
+    display: block;
+    margin: 1em auto;
+}
