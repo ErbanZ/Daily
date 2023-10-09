@@ -16,3 +16,4 @@ class hello(HttpUser):
     def hello_name(self):
         for i in range(10):
             self.client.get(f"/get?id={i}", name="/get?id=666")
+
