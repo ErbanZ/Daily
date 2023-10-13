@@ -12,7 +12,7 @@
 			"#! /usr/bin/env python3",
 			"# coding=utf-8",
 			"",
-			"# Description: Write file description here",
+			"# @Description: Write file description here",
 			"",
 			"",
 			"if __name__ == '__main__':",
