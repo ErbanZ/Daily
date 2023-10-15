@@ -1,4 +1,3 @@
-#! /usr/bin/env python3
 # coding=utf-8
 
 # Description: create python snippet and test it
@@ -25,4 +24,5 @@
 
 
 if __name__ == '__main__':
-    print("pytemplate")
+	print("pyhead")
+	print("pytemplate")
