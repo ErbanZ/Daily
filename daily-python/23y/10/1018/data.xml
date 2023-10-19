@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tree name="tree">
+    <node name="1_max">
+        <node name="101_Projecter"></node>
+        <node name="102_Documents"></node>  
+        <node name="103_Applications"></node>  
+    </node>
+    <node name="2_life">
+        <node name="201_Documents"></node>        
+        <node name="202_Images"></node>        
+        <node name="203_Backup"></node>
+        <node name="204_Other"></node>
+        <node name="205_Interesting"></node>
+    </node>
+</tree>
