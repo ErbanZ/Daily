@@ -30,6 +30,23 @@ def test_broken():
     raise Exception('oops')
 
 
+@allure.feature("用户管理")
+@allure.story("用户登录")
+class TestUserLogin:
+    @allure.title("成功的登录")
+    def test_user_login_success(self):
+        # 测试逻辑
+        assert True
+
+    @allure.title("失败的登录")
+    @allure.step("输入用户名")
+    @allure.step("输入密码")
+    @allure.step("提交登录")
+    def test_user_login_failure(self):
+        # 测试逻辑
+        assert False
+
+
 if __name__ == '__main__':
     # pytest.main(["-s","allure-test.py"])
     '''
@@ -38,5 +55,4 @@ if __name__ == '__main__':
     -s: 显示程序中的print/logging输出
     '''
     pytest.main(['-s', '-q', f'{__file__}', '--clean-alluredir', '--alluredir=allure-results'])
-    os.system(r"allure generate -c -o allure-report")
-
+    os.system(r"allure generate -c allure-results -o allure-report")

@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"cb3f8cae1c36ac2de005c4d20aacc560","name":"TestAllure","statistic":{"failed":1,"broken":1,"skipped":1,"passed":1,"unknown":0,"total":4}}]}
+{"total":1,"items":[{"uid":"cb3f8cae1c36ac2de005c4d20aacc560","name":"TestAllure","statistic":{"failed":2,"broken":1,"skipped":1,"passed":2,"unknown":0,"total":6}}]}
